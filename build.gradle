@@ -1,0 +1,51 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+plugins {
+    id 'com.bmuschko.docker-remote-api' version "$dockerVersion" apply false
+}
+
+def javaProjects = [
+        project(':clients-ms'),
+        project(':clients-register-ms'),
+
+]
+
+allprojects {
+
+    group 'az.client.management'
+    version '1.0-SNAPSHOT'
+    apply plugin: 'java'
+    apply plugin: 'com.bmuschko.docker-remote-api'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+
+    }
+}
+
+
+configure(javaProjects) {
+    task dockerFile(type: Dockerfile, dependsOn: assemble) {
+        destFile.set(project.file('Dockerfile'))
+        from "alpine:$alpineVersion"
+        runCommand 'apk add --no-cache openjdk11'
+        copyFile "build/libs/${jar.archiveFileName.get()}", '/app/'
+        workingDir '/app/'
+        entryPoint 'java'
+        defaultCommand '-jar', "/app/${jar.archiveFileName.get()}"
+    }
+
+    task dockerBuild(type: DockerBuildImage, dependsOn: dockerFile) {
+        inputDir.set(file("$projectDir/."))
+        doLast {
+            println("creatig image: ${project.name}:$version")
+        }
+        images.add("${project.name}:$version")
+    }
+
+}

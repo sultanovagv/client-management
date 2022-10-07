@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "tax",
+      "type": "az.client.register.config.TaxProperties",
+      "sourceType": "az.client.register.config.TaxProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "tax.percent",
+      "type": "java.math.BigDecimal",
+      "sourceType": "az.client.register.config.TaxProperties"
+    }
+  ],
+  "hints": []
+}

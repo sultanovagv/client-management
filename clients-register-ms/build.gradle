@@ -1,0 +1,69 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id "org.liquibase.gradle" version "2.0.4"
+}
+
+
+ext {
+    set('springCloudVersion', "2021.0.0")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+group = 'az.client'
+
+
+defaultTasks 'bootRun'
+
+springBoot {
+    mainClass = 'az.client.register.ClientsRegisterApplication'
+}
+
+
+if (!project.hasProperty('runList')) {
+    project.ext.runList = 'main'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.2.1.RELEASE'
+    implementation "org.liquibase:liquibase-core"
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation "org.modelmapper:modelmapper:${modelmapperVersion}"
+    implementation "org.liquibase:liquibase-core"
+    liquibaseRuntime "org.liquibase:liquibase-core"
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation "org.mapstruct:mapstruct:${mapstruct_version}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
+
+    implementation "io.springfox:springfox-bean-validators:${springfox_version}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    implementation "org.springframework.boot:spring-boot-starter-undertow"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    implementation "mysql:mysql-connector-java"
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka'
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation "io.github.openfeign:feign-jackson:11.0"
+    implementation "io.github.openfeign:feign-annotation-error-decoder:11.6"
+}
+
+
+

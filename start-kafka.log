@@ -1,0 +1,5 @@
+[*] KAFKA_HOME=/opt/kafka_2.12-1.0.0
+[*] BEGIN configure: /opt/kafka_2.12-1.0.0/config/server.properties
+[*] advertised.listeners=PLAINTEXT://kafka-server:9093
+[*] END configure: /opt/kafka_2.12-1.0.0/config/server.properties
+[*] Starting Kafka at 06/10/2022 18:06:38
