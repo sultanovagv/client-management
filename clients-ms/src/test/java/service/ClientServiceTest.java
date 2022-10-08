@@ -15,6 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,12 +39,11 @@ public class ClientServiceTest {
 
 
     @Test
-    void sentToKafka_when_success(){
+    void createClient_when_success() {
         var client = new Client();
         client.setName("Gunel");
         client.setSurname("Sultanova");
         client.setWage(new BigDecimal(1000));
-
         var clientDto = new ClientDto();
         clientDto.setName("Gunel");
         clientDto.setSurname("Sultanova");
@@ -50,6 +51,9 @@ public class ClientServiceTest {
         clientDto.setEventTime(LocalDateTime.now());
 
         when(mapper.toClientEntity(client)).thenReturn(clientDto);
+        clientService.createClient(client);
+
+        verify(mapper, times(1)).toClientEntity(client);
     }
 
 }
