@@ -1,28 +1,29 @@
 services:
-  mysql:
-    image: mysql
+  db:
+    hostname: mysql
+    image: mysql:latest
     restart: always
-    ports:
-      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
   zookeeper:
-    image: confluentinc/cp-zookeeper
-    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 2181:2181
   kafka:
-    image: confluentinc/cp-kafka
-    container_name: kafka
+    image: confluentinc/cp-kafka:latest
     depends_on:
       - zookeeper
     ports:
-      - 9092:9092
+      - 29092:29092
     environment:
-      KAFKA_BROKER_ID: 0
+      KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -38,25 +39,32 @@ services:
       - kafka
 
   clients-ms:
-    image: clients:8
+    hostname: clients-ms
+    image: clients:1
     restart: on-failure
     depends_on:
-      - mysql
+      - db
+      - kafka
     environment:
-      DB_CONNECTION_IP: mysql
-      KAFKA_BROKER: kafka
+      WAIT_HOSTS: db:3306
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/clientDb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     ports:
-      - 8081:8088
+      - 8081:8080
 
-#  clients-register-ms:
-#    image: register:8
-#    restart: always
-#    ports:
-#      - 8089:8088
-#    depends_on:
-#      - mysql
-#      - kafka
-#      - clients-ms
-#    environment:
-#      DB_CONNECTION_IP: mysql
-#      CLIENTS_MS_DOMAIN : clients-ms
+  clients-register-ms:
+    image: clients-register:3
+    restart: always
+    ports:
+      - 8082:8080
+    depends_on:
+      - db
+      - kafka
+      - clients-ms
+    environment:
+      WAIT_HOSTS: db:3306
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/clientDb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      client.clients-ms.url:  http://clients-ms:8080/

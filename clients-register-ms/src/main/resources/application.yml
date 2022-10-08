@@ -2,28 +2,19 @@ spring:
   liquibase:
     change-log: classpath:config/liquibase/master.xml
     enabled: true
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://${DB_CONNECTION_IP:localhost}:${DB_CONNECTION_PORT:3306}/db?allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
-    username: ${DB_CONNECTION_USERNAME:root}
-    password: ${DB_CONNECTION_PASSWORD:root}
   jpa:
-    show-sql: true
-    generate-ddl: false
-    hibernate:
-      ddl-auto: update
-  kafka:
-    bootstrap-servers: kafka:9092
-
-
-server:
-  port: 8088
-
+    database: mysql
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: false
 
   cloud:
     function:
       definition: clients-register
     stream:
+      kafka:
+        binder:
+          brokers: kafka:9092
       bindings:
         clients-register-in-0:
           destination: clients-register-out-0
@@ -31,6 +22,5 @@ server:
           contentType: application/json
 
 
-client:
-  clients-ms:
-    url: ${CLIENTS_MS_DOMAIN:localhost}:${CLIENTS_MS_PORT:8081}
+server:
+  port: 8080
