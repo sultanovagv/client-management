@@ -1,11 +1,13 @@
 package az.client.register.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 public class FailedClient {
 
     private Long id;
@@ -13,5 +15,5 @@ public class FailedClient {
     private String surname;
     private BigDecimal wage;
     private LocalDateTime eventTime;
-    private Boolean active;
+    private boolean active;
 }

@@ -1,8 +1,11 @@
 package service;
 
+import az.client.entity.FailedClientEntity;
 import az.client.mapper.ClientMapper;
+import az.client.mapper.FailedClientMapper;
 import az.client.model.Client;
 import az.client.model.ClientDto;
+import az.client.repository.FailedClientRepository;
 import az.client.service.ClientService;
 import az.client.service.FailedClientService;
 import az.client.stream.ClientProducer;
@@ -22,8 +25,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ClientServiceTest {
 
-    @Mock
     private FailedClientService failedClientService;
+    @Mock
+    private FailedClientRepository failedClientRepository;
+    @Mock
+    private FailedClientMapper failedClientMapper;
 
     @Mock
     private ClientProducer producer;
@@ -35,6 +41,7 @@ public class ClientServiceTest {
     @BeforeEach
     public void setUp() {
         clientService = new ClientService(failedClientService, producer, mapper);
+        failedClientService = new FailedClientService(failedClientRepository, failedClientMapper);
     }
 
 
@@ -56,6 +63,26 @@ public class ClientServiceTest {
         verify(mapper, times(1)).toClientEntity(client);
     }
 
+
+    @Test
+    void createClient_when_fail() {
+        var clientDto = new ClientDto();
+        clientDto.setName("Gunel");
+        clientDto.setSurname("Sultanova");
+        clientDto.setWage(new BigDecimal(1000));
+        clientDto.setEventTime(LocalDateTime.now());
+
+        var failed = new FailedClientEntity();
+        failed.setName("Gunel");
+        failed.setSurname("Sultanova");
+        failed.setWage(new BigDecimal(1000));
+        failed.setEventTime(LocalDateTime.now());
+
+        when(failedClientMapper.toFailedClient(clientDto)).thenReturn(failed);
+        when(failedClientRepository.save(failed)).thenReturn(failed);
+
+        failedClientService.saveFailedMessage(clientDto);
+    }
 
 
 }

@@ -1,6 +1,6 @@
 package az.client.register.jobs;
 
-import az.client.register.service.ClientService;
+import az.client.register.service.ClientRegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 public class RemoveFailedClientsJob {
 
     @Autowired
-    private final ClientService clientService;
+    private final ClientRegisterService clientRegisterService;
 
     @Scheduled(fixedRate = 20000, zone = "GMT+4")
     public void saveClients() {
-        clientService.removeFailedClients();
+        clientRegisterService.removeFailedClients();
         log.info(" clients is finished ");
     }
 }

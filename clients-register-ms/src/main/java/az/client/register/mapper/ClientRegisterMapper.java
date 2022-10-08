@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
         uses = WageQualifier.class, componentModel = "spring")
-public interface ClientMapper {
+public interface ClientRegisterMapper {
 
     @Mapping(source = "wage", target = "wage", qualifiedByName = "mapWage")
     ClientEntity toClientEntity(ClientDto dto);

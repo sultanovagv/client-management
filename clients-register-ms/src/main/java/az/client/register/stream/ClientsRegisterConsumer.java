@@ -1,7 +1,7 @@
 package az.client.register.stream;
 
 import az.client.register.model.ClientDto;
-import az.client.register.service.ClientService;
+import az.client.register.service.ClientRegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 @Slf4j
 public class ClientsRegisterConsumer implements Consumer<Message<ClientDto>> {
 
-    private final ClientService service;
+    private final ClientRegisterService service;
 
     @Override
     public void accept(Message<ClientDto> message) {
