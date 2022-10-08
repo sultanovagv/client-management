@@ -15,7 +15,7 @@ public class RemoveFailedClientsJob {
     @Autowired
     private final ClientService clientService;
 
-    @Scheduled(fixedRate = 30000, zone = "GMT+4")
+    @Scheduled(fixedRate = 20000, zone = "GMT+4")
     public void saveClients() {
         clientService.removeFailedClients();
         log.info(" clients is finished ");

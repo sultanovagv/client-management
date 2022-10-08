@@ -56,4 +56,6 @@ public class ClientServiceTest {
         verify(mapper, times(1)).toClientEntity(client);
     }
 
+
+
 }
