@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.ClientServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-08T20:58:02" hostname="Gunels-MacBook-Pro.local" time="1.704">
-  <properties/>
-  <testcase name="createClient_when_fail()" classname="service.ClientServiceTest" time="1.601"/>
-  <testcase name="createClient_when_success()" classname="service.ClientServiceTest" time="0.1"/>
-  <system-out><![CDATA[00:58:03.960 [Test worker] INFO az.client.service.ClientService - Message was sent : Client(name=Gunel, surname=Sultanova, wage=1000)
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -64,6 +64,9 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    testImplementation "org.testcontainers:testcontainers:${testcontainerVersion}"
+    testImplementation "org.testcontainers:mysql:${testcontainerVersion}"
+    testImplementation "org.testcontainers:junit-jupiter:${testcontainerVersion}"
 }
 
 

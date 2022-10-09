@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.ClientRegisterServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-08T20:58:11" hostname="Gunels-MacBook-Pro.local" time="1.036">
+<testsuite name="service.ClientRegisterServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-09T19:17:08" hostname="Gunels-MacBook-Pro.local" time="0.984">
   <properties/>
-  <testcase name="saveClientInfo()" classname="service.ClientRegisterServiceTest" time="1.036"/>
+  <testcase name="saveClientInfo()" classname="service.ClientRegisterServiceTest" time="0.984"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -3,6 +3,7 @@ package az.client.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -14,7 +15,7 @@ public class Client {
     private String name;
     @NotNull(message = "Surname can't be null")
     private String surname;
-    @NotNull(message = "Wage can't be null")
+    @Min(value = 0, message = "Wage can't be lower")
     private BigDecimal wage;
 
 }
