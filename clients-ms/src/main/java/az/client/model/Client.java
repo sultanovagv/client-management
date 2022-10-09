@@ -15,7 +15,7 @@ public class Client {
     private String name;
     @NotNull(message = "Surname can't be null")
     private String surname;
-    @Min(value = 0, message = "Wage can't be lower")
+    @Min(value = 100, message = "Wage can't be lower")
     private BigDecimal wage;
 
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="az.client.service.ClientServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-09T19:16:59" hostname="Gunels-MacBook-Pro.local" time="0.284">
+<testsuite name="az.client.service.ClientServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-09T19:57:31" hostname="Gunels-MacBook-Pro.local" time="0.472">
   <properties/>
-  <testcase name="createClient_when_fail()" classname="az.client.service.ClientServiceTest" time="0.264"/>
-  <testcase name="createClient_when_success()" classname="az.client.service.ClientServiceTest" time="0.02"/>
-  <system-out><![CDATA[2022-10-09 23:16:59.913  INFO 87380 --- [    Test worker] az.client.service.ClientService          : Message was sent : Client(name=Gunel, surname=Sultanova, wage=1000)
+  <testcase name="createClient_when_fail()" classname="az.client.service.ClientServiceTest" time="0.444"/>
+  <testcase name="createClient_when_success()" classname="az.client.service.ClientServiceTest" time="0.027"/>
+  <system-out><![CDATA[2022-10-09 23:57:31.844  INFO 90723 --- [    Test worker] az.client.service.ClientService          : Message was sent : Client(name=Gunel, surname=Sultanova, wage=1000)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

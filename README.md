@@ -14,7 +14,7 @@ You can run app. as below :
 
 1. docker-compose up
 
-2. call API - http://localhost:8081/clients - POST
+2. call API -  http://localhost:8081/clients - POST
 
 Request body:
 {
@@ -22,7 +22,9 @@ Request body:
 "surname": "sultanova",
 "wage": 1000
 }
-or with
+or 
+
+use 
 swagger url : http://localhost:8081/swagger-ui/index.html
 
 --------------------
@@ -33,5 +35,5 @@ Improvement:
 
 
 I've added gateway to the system and created multiple instances of client-ms application (geographically etc) to reduce loading in the application.
-I would add another module to the app because of kafka-connect configurations instead of job. when it failed kafka-connect would send data to kafka
-clients-registration application consumes data and stores its own database.
+I would add another module to the app because of kafka-connect configurations instead of using job. when it failed kafka-connect would send data to kafka.
+after sending data to kafka. clients-registration application consumes data and stores its own database.

@@ -11,7 +11,9 @@ public final class WageUtil {
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
 
     public static BigDecimal calculateWithTaxPercent(BigDecimal value, BigDecimal percent) {
-        return value.multiply(percent).divide(HUNDRED, SCALE_RANGE_2, ROUNDING_MODE);
+        var percentOfValue = value.multiply(percent)
+                .divide(HUNDRED, SCALE_RANGE_2, ROUNDING_MODE);
+        return value.add(percentOfValue);
     }
 
 }
